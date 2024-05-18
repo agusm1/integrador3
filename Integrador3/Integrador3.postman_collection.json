@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "87ce3fe7-9792-4868-82bd-d27d4e23ddef",
+		"name": "Integrador3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34700609"
+	},
+	"item": [
+		{
+			"name": "ordenByApellido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/XApellido",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"XApellido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudianteXNumLib",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/13666",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"13666"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudiantesByCarreraXCiudad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/buscar/14/Azilal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"buscar",
+						"14",
+						"Azilal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCarrerasPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carreras/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carreras",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEstudiantePorGenero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/genero/Male",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"genero",
+						"Male"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCarrerasConInscriptos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carreras/inscriptos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carreras",
+						"inscriptos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReporteCarrera",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carreras/CarrerasPorAnio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carreras",
+						"CarrerasPorAnio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "darDeAlta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num_doc\": 103859057,\r\n    \"nombre\": \"Edinson\",\r\n    \"apellido\": \"Cavani\",\r\n    \"genero\": \"M\",\r\n    \"edad\": 31,\r\n    \"ciudad\": \"La Boca\",\r\n    \"num_Libreta\": 87654321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/darDeAlta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"darDeAlta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num_doc\": 103859057,\r\n    \"nombre\": \"Edinson\",\r\n    \"apellido\": \"Cavani\",\r\n    \"genero\": \"M\",\r\n    \"edad\": 37,\r\n    \"ciudad\": \"La Boca\",\r\n    \"num_Libreta\": 87654321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/103859057",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"103859057"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEstudiante",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/44782708",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"44782708"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
