@@ -1,27 +1,29 @@
 package com.example.integrador3v1.Repositorios;
-import com.example.integrador3v1.DTOS.EstudianteDTO;
 import com.example.integrador3v1.Modelos.Estudiante;
+import com.example.integrador3v1.Servicios.dto.estudiante.response.EstudianteResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("EstudianteRepositorio")
 public interface EstudianteRepositorio  extends JpaRepository<Estudiante, Long> {
+
     @Query("SELECT e FROM Estudiante e WHERE e.num_Libreta=:lib")
-    public Estudiante getEstudiantePorNumLibreta(Long lib);
+    Optional<Estudiante> getEstudiantePorNumLibreta(Long lib);
 
     @Query("SELECT e FROM Estudiante e WHERE e.genero=:generoElegido")
-    public List<Estudiante> findByGenero(@Param("generoElegido") String generoElegido);
+    List<EstudianteResponseDTO> findByGenero(@Param("generoElegido") String generoElegido);
 
     @Query("SELECT e FROM Estudiante e ORDER BY e.apellido DESC")
-    public List<Estudiante> getEstudiantesPorOrdenDelApellido();
+    List<Estudiante> getEstudiantesPorOrdenDelApellido();
 
-    @Query("SELECT new com.example.integrador3v1.DTOS.EstudianteDTO(e.num_doc, e.num_Libreta, e.nombre, e.apellido, e.genero, e.edad, e.ciudad) " +
-            "FROM Estudiante e " +
-            "JOIN CarreraEstudiante ce ON e.num_doc = ce.id.num_doc " +
-            "JOIN Carrera ca ON ca.idCarrera = ce.id.idCarrera " +
-            "WHERE ca.idCarrera = :id_carrera AND e.ciudad = :ciudad")
-    public List<EstudianteDTO> getEstudiantesByCarrera(@Param("id_carrera") Long id_carrera, @Param("ciudad") String ciudad);
+    @Query("SELECT e " +
+            "FROM Estudiante  e " +
+            "JOIN CarreraEstudiante ce ON ce.estudiante.num_doc = e.num_doc " +
+            "JOIN Carrera c ON ce.carrera.id_carrera = c.id_carrera "  +
+            "WHERE c.id_carrera = :id_carrera  AND e.ciudad = :ciudad ")
+    List<Estudiante> getEstudiantesByCarrera(@Param("id_carrera") Long id_carrera, @Param("ciudad") String ciudad);
 }

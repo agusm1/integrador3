@@ -55,7 +55,6 @@ public class CargaDeDatos {
 
         try (FileReader reader = new FileReader(archivoCSV);
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
-
             for (CSVRecord csvRecord : csvParser) {
                 CarreraEstudianteID id = new CarreraEstudianteID(
                         Long.valueOf(csvRecord.get("id_carrera")),
@@ -63,12 +62,39 @@ public class CargaDeDatos {
 
                 CarreraEstudiante ce = new CarreraEstudiante();
                 ce.setId(id);
-                ce.setId_ce(Long.valueOf(csvRecord.get("id")));
-                ce.setFecha_inscripcion(Integer.valueOf(csvRecord.get("inscripcion")));
-                ce.setFecha_graduacion(Integer.valueOf(csvRecord.get("graduacion")));
+                ce.setFecha_inscripcion(Integer.parseInt(csvRecord.get("inscripcion")));
+                ce.setFecha_graduacion(Integer.parseInt(csvRecord.get("graduacion")));
                 ce.setAntiguedad(Integer.parseInt(csvRecord.get("antiguedad")));
 
                 repoCE.save(ce);
+//                Long num_doc = Long.valueOf(csvRecord.get("id_estudiante"));
+//                Long id_carrera = Long.valueOf(csvRecord.get("id_carrera"));
+//
+//                // Crear una instancia de CarreraEstudianteID
+//                CarreraEstudianteID ceID = new CarreraEstudianteID();
+//                ceID.setIdEstudiante(num_doc);
+//                ceID.setIdCarrera(id_carrera);
+//
+//                // Crear una instancia de CarreraEstudiante y configurar sus relaciones
+//                CarreraEstudiante ce = new CarreraEstudiante();
+//                ce.setId(ceID);
+//
+//                // Configurar la relación con Estudiante
+//                Estudiante estudiante = new Estudiante();
+//                estudiante.setNum_doc(num_doc);
+//                ce.setEstudiante(estudiante);
+//
+//                // Configurar la relación con Carrera
+//                Carrera carrera = new Carrera();
+//                carrera.setIdCarrera(id_carrera);
+//                ce.setCarrera(carrera);
+//
+//                // Configurar los otros campos
+//                ce.setFecha_inscripcion(Integer.valueOf(csvRecord.get("inscripcion")));
+//                ce.setFecha_graduacion(Integer.valueOf(csvRecord.get("graduacion")));
+//                ce.setAntiguedad(Integer.parseInt(csvRecord.get("antiguedad")));
+//
+//                repoCE.save(ce);
 
             }
         }
@@ -82,7 +108,7 @@ public class CargaDeDatos {
 
             for (CSVRecord csvRecord : csvParser) {
                 Carrera carrera = new Carrera();
-                carrera.setIdCarrera(Long.valueOf(csvRecord.get("id_carrera")));
+                carrera.setId_carrera(Long.valueOf(csvRecord.get("id_carrera")));
                 carrera.setCarrera(csvRecord.get("carrera"));
                 carrera.setDuracion(Integer.parseInt(csvRecord.get("duracion")));
                 repoCarrera.save(carrera);

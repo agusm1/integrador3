@@ -1,16 +1,15 @@
 package com.example.integrador3v1.Modelos;
 
+import com.example.integrador3v1.Servicios.dto.estudiante.request.EstudianteRequestDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Estudiante")
-@Getter @Setter
+@Data
 @NoArgsConstructor
 public class Estudiante {
     @Id
@@ -29,38 +28,16 @@ public class Estudiante {
     @Column(name = "num_libreta")
     private Long num_Libreta;
     @OneToMany(mappedBy = "estudiante")
-    private List<CarreraEstudiante> carreras;
-    /**
-     * Constructor con parámetros.
-     *
-     * @param num_doc     Número de documento del estudiante.
-     * @param num_Libreta Número de libreta universitaria del estudiante.
-     * @param nombres     Nombre/s del estudiante.
-     * @param apellido    Apellido del estudiante.
-     * @param edad        Edad del estudiante.
-     * @param genero      Género del estudiante.
-     * @param ciudad      Ciudad de residencia del estudiante.
-     */
-    public Estudiante(Long num_doc, Long num_Libreta, String nombres, String apellido, int edad, String genero, String ciudad) {
-        this.num_doc = num_doc;
-        this.nombre = nombres;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.genero = genero;
-        this.ciudad = ciudad;
-        this.num_Libreta = num_Libreta;
-        this.carreras = new ArrayList<CarreraEstudiante>();
-    }
+    private Set<CarreraEstudiante> estudiantes;
 
-    /**
-     * Agrega una carrera a la lista de carreras del estudiante.
-     * @param carrera Carrera a agregar.
-     */
-    public void setCarrera(CarreraEstudiante carrera) {this.carreras.add(carrera);}
-
-    @Override
-    public String toString() {
-        return "Estudiante{" + "num_doc=" + num_doc + ", num_Libreta=" + num_Libreta + ", nombre='" + nombre + '\'' + ", apellido='" + apellido + '\'' + ", edad=" + edad + ", genero='" + genero + '\'' + ", ciudad='" + ciudad + '\'' + '}';
+    public Estudiante (EstudianteRequestDTO request){
+        this.num_doc = request.getNum_doc();
+        this.nombre = request.getNombre();
+        this.apellido = request.getApellido();
+        this.edad = request.getEdad();
+        this.genero = request.getGenero();
+        this.ciudad = request.getCiudad();
+        this.num_Libreta = request.getNum_Libreta();
     }
 }
 

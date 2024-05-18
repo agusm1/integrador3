@@ -1,6 +1,8 @@
 package com.example.integrador3v1.Modelos;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,79 +10,32 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "CarreraEstudiante")
+@Data
+@EqualsAndHashCode
 public class CarreraEstudiante implements Serializable {
-    @Getter
-    @Setter
     @EmbeddedId
     private CarreraEstudianteID id;
-    @Getter @Setter
+    @Column
     private long id_ce;
-    @Getter @Setter
-    @Column
-    private int fecha_inscripcion;
-    @Getter
-    @Column
-    private int fecha_graduacion;
-    @Getter @Setter
-    @Column
-    private int antiguedad;
     @ManyToOne
-    @JoinColumn(name = "carrera-fk")
+//    @MapsId("id_carrera")
+    @JoinColumn( name = "id_carrera", insertable=false, updatable=false)
     private Carrera carrera;
+
     @ManyToOne
-    @JoinColumn(name = "estudiante-fk")
+//    @MapsId("id_estudiante")
+    @JoinColumn( name = "num_doc", insertable=false, updatable=false)
     private Estudiante estudiante;
 
-    public CarreraEstudiante() {
-        super();
-    }
+    @Column
+    private int fecha_inscripcion;
+    @Column
+    private int fecha_graduacion;
+    @Column
+    private int antiguedad;
 
-    /**
-     * Constructor con parámetros para crear una nueva relación sin fecha de graduación.
-     *
-     * @param fecha_inscripcion Año de inscripción en la carrera.
-     * @param antiguedad        Antigüedad del estudiante en la carrera.
-     */
-    public CarreraEstudiante(Long id_ce, Carrera c, Estudiante e, int fecha_inscripcion, int antiguedad) {
-        this.id = new CarreraEstudianteID(c.getIdCarrera(), e.getNum_doc());
-        this.id_ce = id_ce;
-        this.fecha_inscripcion = fecha_inscripcion;
-        this.fecha_graduacion = 0;
-        this.antiguedad = antiguedad;
-        this.carrera = c;
-        this.estudiante = e;
-    }
+    public CarreraEstudiante() {}
 
-    /**
-     * Constructor con parámetros para crear una nueva relación con fecha de graduación.
-     *
-     * @param fecha_inscripcion Año de inscripción en la carrera.
-     * @param graduacion        Año de graduación de la carrera.
-     * @param antiguedad        Antigüedad del estudiante en la carrera.
-     */
-    public CarreraEstudiante(Carrera c, Estudiante e, int fecha_inscripcion, int graduacion, int antiguedad) {
-        this.id = new CarreraEstudianteID(c.getIdCarrera(), e.getNum_doc());
-        this.fecha_inscripcion = fecha_inscripcion;
-        this.fecha_graduacion = graduacion;
-        this.antiguedad = antiguedad;
-        this.carrera = c;
-        this.estudiante = e;
-    }
-
-    /**
-     * Establece el año de graduación de la carrera.
-     * Si no cuenta con fecha de graduacion se valida que la fecha de graduación
-     * sea posterior a la fecha de inscripción
-     *
-     * @param fecha_graduacion El año de graduación de la carrera.
-     */
-    public void setFecha_graduacion(int fecha_graduacion) {
-        if (this.fecha_graduacion == 0) {
-            if (this.fecha_inscripcion < fecha_graduacion) {
-                this.fecha_graduacion = fecha_graduacion;
-            }
-        }
-    }
 
     @Override
     public String toString() {
